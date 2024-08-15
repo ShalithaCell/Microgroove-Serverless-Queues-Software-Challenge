@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "Microgroove.Function.PersonNameService": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7191"
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "DockerfileRunArguments": "--init",
+      "httpPort": 30750,
+      "useSSL": false
+    }
+  }
+}
