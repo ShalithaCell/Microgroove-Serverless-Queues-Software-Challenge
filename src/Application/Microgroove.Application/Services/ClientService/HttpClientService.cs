@@ -9,7 +9,7 @@ using Polly;
 
 namespace Microgroove.Application.Services.ClientService
 {
-    public class HttpClientService
+    public class HttpClientService : IHttpClientService
     {
         private readonly HttpClient _httpClient;
         private readonly ILogger<HttpClientService> _logger;
@@ -34,7 +34,7 @@ namespace Microgroove.Application.Services.ClientService
                     });
         }
 
-        public async Task<string> GetInitialsAsync(string fullName)
+        public virtual async  Task<string> GetInitialsAsync(string fullName)
         {
             // Example usage of the retry policy
             var response = await _retryPolicy.ExecuteAsync(() => _httpClient.GetAsync($"https://tagdiscovery.com/api/get-initials?name={Uri.EscapeDataString(fullName)}"));

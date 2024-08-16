@@ -27,7 +27,7 @@ namespace Microgroove.Application
             services.AddTransient<PersonDtoValidator>();
 
             // Inject Http Client Service
-            services.AddHttpClient<HttpClientService>();
+            services.AddHttpClient<IHttpClientService, HttpClientService>();
         }
     }
 }

@@ -14,10 +14,10 @@ namespace Microgroove.Function.PersonNameService
     public class FunctionB
     {
         private readonly ILogger<FunctionB> _logger;
-        private readonly HttpClientService _httpClientService;
+        private readonly IHttpClientService _httpClientService;
         private readonly IPersonService _personService;
 
-        public FunctionB(ILogger<FunctionB> logger, IPersonService personService, HttpClientService httpClientService)
+        public FunctionB(ILogger<FunctionB> logger, IPersonService personService, IHttpClientService httpClientService)
         {
             _logger = logger;
             _personService = personService;
