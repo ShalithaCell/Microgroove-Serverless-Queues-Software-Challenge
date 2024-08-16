@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microgroove.Application.Services.ClientService;
 using Microgroove.Application.Services.PersonService;
 using Microgroove.Application.Validators;
 using Microgroove.Infrastructure;
@@ -24,6 +25,9 @@ namespace Microgroove.Application
 
             // Validators
             services.AddTransient<PersonDtoValidator>();
+
+            // Inject Http Client Service
+            services.AddHttpClient<HttpClientService>();
         }
     }
 }

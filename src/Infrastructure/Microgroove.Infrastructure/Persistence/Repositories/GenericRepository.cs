@@ -50,13 +50,13 @@ namespace Microgroove.Infrastructure.Persistence.Repositories
         ///<inheritdoc/>
         public async Task<IEnumerable<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return await _dbSet.Where(predicate).AsNoTracking().ToListAsync();
         }
 
         ///<inheritdoc/>
         public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
         {
-            return await _dbSet.FirstOrDefaultAsync(predicate);
+            return await _dbSet.AsNoTracking().FirstOrDefaultAsync(predicate);
         }
 
         ///<inheritdoc/>

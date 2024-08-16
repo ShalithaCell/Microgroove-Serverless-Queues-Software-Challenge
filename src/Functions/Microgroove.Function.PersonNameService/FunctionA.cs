@@ -30,7 +30,7 @@ namespace Microgroove.Function.PersonNameService
         [Function("FunctionA")]
         public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Anonymous, "post")] HttpRequest req)
         {
-            _logger.LogInformation("C# HTTP trigger function processed A request.");
+            _logger.LogInformation("FunctionA: C# HTTP trigger function processed A request.");
 
             var requestBody = await new StreamReader(req.Body).ReadToEndAsync();
 
@@ -47,7 +47,7 @@ namespace Microgroove.Function.PersonNameService
             }
             catch (JsonException ex)
             {
-                _logger.LogError(ex, "Invalid JSON payload.");
+                _logger.LogError(ex, "FunctionA: Invalid JSON payload.");
                 return new BadRequestObjectResult("Invalid JSON payload.");
             }
 
@@ -55,7 +55,7 @@ namespace Microgroove.Function.PersonNameService
 
             if (!validationResult.IsValid)
             {
-                _logger.LogWarning("Validation failed: {errors}", validationResult.ToString());
+                _logger.LogWarning("FunctionA: Validation failed: {errors}", validationResult.ToString());
                 return new BadRequestObjectResult(validationResult.Errors);
             }
 
@@ -64,7 +64,7 @@ namespace Microgroove.Function.PersonNameService
             if (!added)
             {
                 var message = "Person with the same FirstName and LastName already exists.";
-                _logger.LogWarning(message);
+                _logger.LogWarning($"FunctionA: {message}");
                 return new ConflictObjectResult(message);
             }
 

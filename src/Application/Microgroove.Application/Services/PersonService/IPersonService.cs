@@ -39,6 +39,6 @@ namespace Microgroove.Application.Services.PersonService
         /// <param name="person"></param>
         /// <param name="svgData"></param>
         /// <returns></returns>
-        Task UpdatePersonSvgAsync(PersonDto person, string svgData);
+        Task<bool> UpdatePersonSvgAsync(PersonDto person, string svgData);
     }
 }

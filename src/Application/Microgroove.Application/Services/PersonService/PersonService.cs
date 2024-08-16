@@ -64,17 +64,27 @@ namespace Microgroove.Application.Services.PersonService
         }
 
         /// <inheritdoc />
-        public async Task UpdatePersonSvgAsync(PersonDto person, string svgData)
+        public async Task<bool> UpdatePersonSvgAsync(PersonDto person, string svgData)
         {
             var personData = await GetPersonByNameAsync(person);
 
             if (personData == null)
             {
-                return;
+                return false;
             }
 
-            personData.SvgData = svgData;
+            var personObj = new Person
+            {
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                Id = personData.Id,
+                SvgData = svgData
+            };
+
+            await unitOfWork.Repository<Person>().UpdateAsync(personObj);
             await unitOfWork.SaveChangesAsync();
+
+            return true;
         }
     }
 }
