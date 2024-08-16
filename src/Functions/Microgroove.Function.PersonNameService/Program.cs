@@ -1,3 +1,4 @@
+using Azure.Storage.Queues;
 using Microgroove.Application;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,13 @@ var host = new HostBuilder()
         services.ConfigureFunctionsApplicationInsights();
 
         services.RegisterApplication();
+
+        // Queue Client
+        string storageConnectionString = Environment.GetEnvironmentVariable("AzureWebJobsStorage");
+        services.AddSingleton(new QueueClient(storageConnectionString, "person-queue"));
+
+        // HttpClientFactory
+        services.AddHttpClient();
 
     })
     .Build();

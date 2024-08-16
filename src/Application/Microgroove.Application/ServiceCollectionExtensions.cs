@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microgroove.Application.Services.PersonService;
+using Microgroove.Application.Validators;
 using Microgroove.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +19,11 @@ namespace Microgroove.Application
             // Register Infrastructure Layer
             services.RegisterApplicationInfrastructure();
 
+            // Register Core Services
+            services.AddScoped<IPersonService, PersonService>();
+
+            // Validators
+            services.AddTransient<PersonDtoValidator>();
         }
     }
 }

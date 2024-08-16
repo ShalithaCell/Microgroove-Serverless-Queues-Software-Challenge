@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microgroove.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
+using Microgroove.Domain.Repositories;
+using Microgroove.Infrastructure.Persistence.Repositories;
+using Microsoft.Data.Sqlite;
 
 namespace Microgroove.Infrastructure
 {
@@ -14,8 +17,13 @@ namespace Microgroove.Infrastructure
     {
         public static void RegisterApplicationInfrastructure(this IServiceCollection services)
         {
+            var keepAliveConnection = new SqliteConnection("DataSource=:memory:");
+            keepAliveConnection.Open();
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite("Data Source=:memory:")); // In-memory SQLite
+            {
+                options.UseSqlite(keepAliveConnection);
+            });
 
             #region Ensure database is created
 
@@ -29,6 +37,9 @@ namespace Microgroove.Infrastructure
             }
 
             #endregion
+
+            // Register the Unit of Work
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         }
     }
